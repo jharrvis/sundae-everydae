@@ -655,6 +655,9 @@
         </div>
     </section>
 
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" title="Go to top">↑</button>
+
     <footer>
         <div class="container text-center">
             <p>&copy; 2026 Sundae Everydae. All Rights Reserved.</p>
@@ -770,6 +773,25 @@
             // But if we wanted to change internal resolution:
             // canvas.width = window.innerWidth;
             // canvas.height = window.innerHeight;
+        }
+
+        // --- SCROLL TO TOP LOGIC ---
+        const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+        window.addEventListener('scroll', () => {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollTopBtn.classList.add("visible");
+            } else {
+                scrollTopBtn.classList.remove("visible");
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
             // For image sequences, keeping original aspect ratio and using object-fit: cover in CSS is usually better/smoother
         }
 
