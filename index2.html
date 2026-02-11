@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sundae Everydae - Scroll Sequence Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Scroll Sequence Hero Styles */
+        .hero-sequence-container {
+            position: relative;
+            height: 400vh;
+            /* Control the speed of the animation by increasing height */
+            background: white;
+        }
+
+        .sticky-hero {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .sticky-hero .container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            height: 100%;
+            width: 100%;
+        }
+
+        .hero-canvas-wrapper {
+            position: absolute;
+            top: 0;
+            right: 0;
+            /* Align to right */
+            left: auto;
+            width: 60%;
+            /* Occupy right side (60%) */
+            height: 100%;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Mask to fade nicely into content */
+            -webkit-mask-image: linear-gradient(to right, transparent, black 20%);
+            mask-image: linear-gradient(to right, transparent, black 20%);
+        }
+
+        canvas#hero-canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Overlay Content to keep it visible but allow looking at the product */
+        .hero-content-overlay {
+            position: relative;
+            z-index: 20;
+            max-width: 50%;
+            /* Limit to left half */
+            color: var(--text-dark);
+            text-shadow: none;
+            background: none;
+            /* Remove card bg */
+            padding: 0;
+            border-radius: 0;
+            backdrop-filter: none;
+            box-shadow: none;
+        }
+
+        .hero-content-overlay h1 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: #d63384;
+        }
+
+        .hero-content-overlay .subheadline {
+            font-size: 1.25rem;
+            margin-bottom: 2.5rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .hero-content-overlay .badge {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Navbar Overrides */
+        .navbar.transparent {
+            background: transparent;
+            backdrop-filter: none;
+            box-shadow: none;
+            padding: 25px 0;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            padding: 15px 0;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 900px) {
+            .hero-canvas-wrapper {
+                width: 100%;
+                left: 0;
+                opacity: 0.3;
+                /* Fade out image on mobile to make text readable */
+                -webkit-mask-image: none;
+                mask-image: none;
+            }
+
+            .hero-content-overlay {
+                max-width: 100%;
+                text-align: center;
+                margin: 0 auto;
+            }
+
+            .sticky-hero .container {
+                justify-content: center;
+            }
+
+            .navbar.transparent {
+                background: rgba(255, 255, 255, 0.9);
+                /* Keep bg on mobile usually */
+                padding: 15px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar transparent">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="assets/img/logo.webp" alt="Sundae Everydae Logo">
+            </a>
+
+            <!-- Desktop Menu -->
+            <ul class="nav-links">
+                <li><a href="#perbandingan">Perbandingan</a></li>
+                <li><a href="#prospek">Prospek</a></li>
+                <li><a href="#paket">Paket Usaha</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="#konsultasi" class="btn-primary">Konsultasi Sekarang</a>
+                <button class="mobile-toggle" aria-label="Open Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Off-canvas Menu -->
+    <div class="offcanvas-overlay"></div>
+    <aside class="offcanvas-menu">
+        <div class="offcanvas-header">
+            <span class="offcanvas-title">Menu</span>
+            <button class="close-btn" aria-label="Close Menu">&times;</button>
+        </div>
+        <ul class="mobile-nav-links">
+            <li><a href="#perbandingan">Perbandingan</a></li>
+            <li><a href="#prospek">Prospek</a></li>
+            <li><a href="#paket">Paket Usaha</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#konsultasi" class="btn-mobile-cta">Konsultasi Sekarang</a></li>
+        </ul>
+    </aside>
+
+    <!-- Hero Section with Scroll Sequence -->
+    <div class="hero-sequence-container">
+        <div class="sticky-hero">
+            <div class="hero-canvas-wrapper">
+                <canvas id="hero-canvas"></canvas>
+            </div>
+
+            <div class="container">
+                <div class="hero-content-overlay">
+                    <span class="badge">🍦 Peluang Bisnis Es Krim Viral</span>
+                    <h1>MODAL 50 JUTA,<br>RASA & HASIL SELEVEL FRANCHISE 700 JUTA!</h1>
+                    <p class="subheadline">Kenapa Harus Mengantri 2 Tahun untuk Balik Modal, Jika Kamu Bisa "Profit" di
+                        Bulan Ke-5?</p>
+                    <div class="cta-group">
+                        <a href="#perbandingan" class="btn-primary icon-btn">Pelajari Lebih Lanjut 👇</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logic War Section -->
+    <section id="perbandingan" class="logic-war section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>PERANG LOGIKA:<br><span class="highlight">1 Gerai vs 14 Gerai</span></h2>
+                <p>Mari kita bicara angka jujur. Jika kamu punya modal besar, mana yang lebih cerdas secara bisnis?</p>
+            </div>
+
+            <div class="options-grid">
+                <div class="option-card option-a">
+                    <div class="card-header">
+                        <h3>Opsi A</h3>
+                        <span class="subtitle">Franchise Viral "M" atau "B"</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="investment">Investasi <span class="price">Rp700 Juta++</span></p>
+                        <p class="desc">Hanya untuk <strong>1 lokasi</strong>. Jika lokasi itu sepi atau terhalang
+                            proyek jalan, investasimu terancam macet total.</p>
+                        <div class="status bad">High Risk</div>
+                    </div>
+                </div>
+                <div class="option-card option-b recommended">
+                    <div class="badge-rec">REKOMENDASI</div>
+                    <div class="card-header">
+                        <h3>Opsi B</h3>
+                        <span class="subtitle">Strategi Dominasi Kami</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="investment">Investasi <span class="price">Rp50 Juta</span> per titik</p>
+                        <p class="desc">Dengan modal yang sama (700 Juta), kamu bisa membuka <strong>14 GERAI</strong>
+                            di seluruh sudut kota.</p>
+                        <div class="status good">Smart Investment</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-conclusion text-center">
+                <p class="lead">Mana yang lebih cepat kaya? <strong>Pemilik 1 gerai atau pemilik 14 gerai?</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Head to Head Table -->
+    <section class="head-to-head section-padding bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Head-to-Head</h2>
+                <p>Sundae Everydae (Paket 50Jt) vs Franchise 700Jt</p>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Detail Perbandingan</th>
+                            <th>Franchise Viral (M/B)</th>
+                            <th class="brand-col">Sundae Everydae (Sweet)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Modal Awal</td>
+                            <td>Rp 700.000.000 - 1 Milyar</td>
+                            <td class="brand-col highlight-text">Rp 50.000.000</td>
+                        </tr>
+                        <tr>
+                            <td>Royalty Fee</td>
+                            <td>Ada (Memotong untungmu)</td>
+                            <td class="brand-col highlight-text">Rp 0 (100% milikmu)</td>
+                        </tr>
+                        <tr>
+                            <td>Beban Sewa</td>
+                            <td>Harus Ruko Besar (Mahal)</td>
+                            <td class="brand-col highlight-text">Bisa Booth Premium / Kontainer</td>
+                        </tr>
+                        <tr>
+                            <td>BEP (Balik Modal)</td>
+                            <td>18 - 24 Bulan</td>
+                            <td class="brand-col highlight-text">5 - 6 Bulan</td>
+                        </tr>
+                        <tr>
+                            <td>Menu & Rasa</td>
+                            <td>Sundae & Mixue Base</td>
+                            <td class="brand-col highlight-text">Kualitas Setara (Grade A Premium)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facilities Section -->
+    <section class="facilities section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Fasilitas Paket "Sweet Dominator"</h2>
+                <p>Dengan 50 Juta, kamu tidak mendapatkan paket "ecek-ecek". Kamu mendapatkan Mesin & Branding Kelas
+                    Berat.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="icon">🍦</div>
+                    <h3>Mesin Es Krim High-Performance</h3>
+                    <p>Kapasitas besar, tekstur lembut, dan konsisten (Setara mesin brand besar).</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">✨</div>
+                    <h3>Booth Premium Estetik</h3>
+                    <p>Desain modern yang mengundang orang untuk berfoto (Instagrammable).</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">📱</div>
+                    <h3>Sistem Kasir Digital (POS)</h3>
+                    <p>Pantau penjualan 14 cabangmu cukup dari satu aplikasi di handphone.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">📦</div>
+                    <h3>Bahan Baku Awal Melimpah</h3>
+                    <p>Siap melayani ribuan cup pertama tanpa belanja lagi.</p>
+                </div>
+                <div class="feature-item">
+                    <div class="icon">🚀</div>
+                    <h3>Lisensi AI Marketing</h3>
+                    <p>Strategi iklan digital khusus untuk membombardir wilayah sekitar outletmu.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Powerful Section -->
+    <section class="why-powerful section-padding bg-pattern">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-text">
+                    <h2>Kenapa Paket 50 Juta Kami Lebih "Powerfull"?</h2>
+                    <p class="lead">Bukan hanya karena murah, tapi karena <strong>Efisiensi</strong>:</p>
+                    <ul class="check-list">
+                        <li>
+                            <strong>✅ Menu Duplikasi</strong>
+                            <p>Kami riset menu yang paling laku di Mixue/Bingsue, lalu kami sempurnakan rasanya agar
+                                kamu bisa menjualnya dengan harga lebih kompetitif.</p>
+                        </li>
+                        <li>
+                            <strong>✅ Tanpa Birokrasi</strong>
+                            <p>Tidak perlu approval lokasi yang rumit. Kamu temukan tempat strategis, kamu buka, kamu
+                                cuan.</p>
+                        </li>
+                        <li>
+                            <strong>✅ Skalabilitas</strong>
+                            <p>Begitu gerai pertama balik modal dalam 5 bulan, gunakan profitnya untuk buka gerai ke-2,
+                                ke-3, dan seterusnya.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-image">
+                    <img src="assets/img/paket-lux.jpg" alt="Sundae Everydae Experience"
+                        class="feature-img rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="paket" class="packages section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Pilihan Paket Usaha</h2>
+                <p>Langkah awal membangun bisnis es krim, dari satu gerai pertama hingga rencana ekspansi ke titik
+                    berikutnya.</p>
+            </div>
+
+            <div class="packages-grid">
+                <!-- Paket Hemat (Sold Out) -->
+                <div class="package-card sold-out">
+                    <div class="package-image">
+                        <img src="assets/img/paket-hemat-sold-out.jpg" alt="Paket Hemat">
+                        <div class="overlay">SOLD OUT</div>
+                    </div>
+                    <div class="package-details">
+                        <h3>Paket Hemat</h3>
+                        <button class="btn-disabled">Habis Terjual</button>
+                    </div>
+                </div>
+
+                <!-- Paket Sugar (Sold Out) -->
+                <div class="package-card sold-out">
+                    <div class="package-image">
+                        <img src="assets/img/paket-sugar-sold-out.jpg" alt="Paket Sugar">
+                        <div class="overlay">SOLD OUT</div>
+                    </div>
+                    <div class="package-details">
+                        <h3>Paket Sugar</h3>
+                        <button class="btn-disabled">Habis Terjual</button>
+                    </div>
+                </div>
+
+                <!-- Paket Sweet -->
+                <div class="package-card featured">
+                    <div class="badge-best">BEST SELLER</div>
+                    <div class="package-image">
+                        <img src="assets/img/paket-sweet.jpg" alt="Paket Sweet">
+                    </div>
+                    <div class="package-details">
+                        <h3>Paket Sweet</h3>
+                        <a href="#konsultasi" class="btn-primary full-width">Pilih Paket Ini</a>
+                    </div>
+                </div>
+
+                <!-- Paket Bliss -->
+                <div class="package-card">
+                    <div class="package-image">
+                        <img src="assets/img/paket-bliss.jpg" alt="Paket Bliss">
+                    </div>
+                    <div class="package-details">
+                        <h3>Paket Bliss</h3>
+                        <a href="#konsultasi" class="btn-outline full-width">Pilih Paket Ini</a>
+                    </div>
+                </div>
+
+                <!-- Paket Lux -->
+                <div class="package-card">
+                    <div class="package-image">
+                        <img src="assets/img/paket-lux.jpg" alt="Paket Lux">
+                    </div>
+                    <div class="package-details">
+                        <h3>Paket Lux</h3>
+                        <a href="#konsultasi" class="btn-outline full-width">Pilih Paket Ini</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials section-padding bg-light">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Apa Kata Mereka?</h2>
+                <p>Pengalaman mereka yang sudah lebih dulu menghitung dan menjalankan.</p>
+            </div>
+
+            <div class="testimonial-slider">
+                <div class="testimonial-card">
+                    <div class="quote-icon">“</div>
+                    <p class="quote">Saya hitung dari awal, target saya bukan viral tapi balik modal. Dengan harga jual
+                        6–18 ribu dan penjualan 60–80 cup/hari, angka masih masuk. Operasional cukup kontrol lewat HP.
+                    </p>
+                    <div class="author">
+                        <strong>Andika</strong>
+                        <span>Karyawan Swasta (Mitra Bandung)</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">“</div>
+                    <p class="quote">Di Sundae Everydae, modal di bawah 50 juta sudah bisa jalan. BEP di kisaran 4–6
+                        bulan jauh lebih masuk akal dibanding franchise ratusan juta.</p>
+                    <div class="author">
+                        <strong>Bu Sari</strong>
+                        <span>Ibu Rumah Tangga (Mitra Depok)</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">“</div>
+                    <p class="quote">Di sini tidak ada royalty fee dan bagi hasil, jadi penjualan harian langsung masuk
+                        ke cashflow sendiri. Jauh lebih ringan dan cepat muter.</p>
+                    <div class="author">
+                        <strong>Rian</strong>
+                        <span>Entrepreneur Muda (Mitra Yogyakarta)</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="quote-icon">“</div>
+                    <p class="quote">Dengan modal lebih kecil dan tanpa royalty, risikonya lebih tersebar. Secara
+                        hitungan bisnis, ini lebih sehat.</p>
+                    <div class="author">
+                        <strong>Maya</strong>
+                        <span>Mantan Pelaku Franchise (Mitra Tangerang)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scarcity & CTA Section -->
+    <section id="konsultasi" class="cta-section section-padding text-center">
+        <div class="container">
+            <div class="scarcity-box">
+                <h2>🚫 JANGAN JADI PENONTON DI KOTA SENDIRI!</h2>
+                <p>Saat kamu ragu, kompetitor sedang mengincar titik strategis di depan sekolah atau minimarket
+                    incaranmu. Begitu mereka buka, wilayah itu terkunci!</p>
+            </div>
+
+            <div class="offer-box">
+                <h3>🔥 SPESIAL BATCH MINGGU INI:</h3>
+                <ul class="offer-list">
+                    <li>✅ Potongan Harga Langsung (Hanya 5 pendaftar pertama)</li>
+                    <li>✅ Gratis Ongkir Seluruh Pulau Jawa</li>
+                    <li>✅ Bonus Bahan Baku Senilai 5 Juta Rupiah</li>
+                </ul>
+                <a href="https://wa.me/6281234567890?text=Halo%20Admin,%20saya%20tertarik%20dengan%20Paket%2050%20Juta%20Sundae%20Everydae"
+                    class="btn-primary btn-lg pulse-effect">
+                    SAYA MAU PAKET 50 JUTA - KONSULTASI SEKARANG
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq section-padding">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Pertanyaan Sering Diajukan</h2>
+            </div>
+            <div class="faq-container">
+                <details>
+                    <summary>1️⃣ Apakah angka balik modal 5–6 bulan ini realistis?</summary>
+                    <p>Estimasi balik modal dihitung berdasarkan harga jual, margin, dan rata-rata penjualan harian yang
+                        wajar di lokasi ramai. Hasil tiap mitra bisa berbeda, namun secara hitungan bisnis angka
+                        tersebut masih masuk akal.</p>
+                </details>
+                <details>
+                    <summary>2️⃣ Kenapa modal 50 juta bisa dibandingkan dengan franchise 700 juta?</summary>
+                    <p>Perbedaannya di struktur biaya dan strategi. Dengan modal lebih kecil, risiko tidak terpusat di
+                        satu titik, tidak ada royalty fee, dan lebih fleksibel untuk ekspansi.</p>
+                </details>
+                <details>
+                    <summary>3️⃣ Apakah benar tidak ada royalty fee dan bagi hasil?</summary>
+                    <p>Ya. Tidak ada royalty fee maupun bagi hasil bulanan. Seluruh keuntungan penjualan menjadi milik
+                        mitra.</p>
+                </details>
+                <details>
+                    <summary>4️⃣ Apakah usaha ini cocok untuk pemula?</summary>
+                    <p>Cocok. Sistem operasional, menu, standar harga, dan panduan sudah disiapkan. Mitra tidak perlu
+                        trial & error dari nol.</p>
+                </details>
+                <details>
+                    <summary>5️⃣ Bagaimana jika lokasi saya tidak seramai perkiraan?</summary>
+                    <p>Tim akan membantu memberikan arahan dasar pemilihan lokasi. Selain itu, skema modal yang lebih
+                        ringan membuat risiko tetap terkendali.</p>
+                </details>
+                <details>
+                    <summary>6️⃣ Apakah usaha ini harus dijalankan full-time?</summary>
+                    <p>Tidak harus. Banyak mitra menjalankan usaha ini dengan bantuan karyawan atau keluarga. Sistem ops
+                        bisa dipantau jarak jauh.</p>
+                </details>
+                <details>
+                    <summary>7️⃣ Setelah gerai pertama berjalan, apa langkah selanjutnya?</summary>
+                    <p>Gunakan keuntungan gerai pertama untuk membuka titik berikutnya. Strategi: memperbanyak titik
+                        penjualan dengan risiko yang tersebar.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center">
+            <p>&copy; 2026 Sundae Everydae. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Close mobile menu if open
+                    document.querySelector('.offcanvas-menu').classList.remove('active');
+                    document.querySelector('.offcanvas-overlay').classList.remove('active');
+
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Mobile Menu Toggle
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const closeBtn = document.querySelector('.close-btn');
+        const overlay = document.querySelector('.offcanvas-overlay');
+        const offcanvasMenu = document.querySelector('.offcanvas-menu');
+
+        function toggleMenu() {
+            offcanvasMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        if (mobileToggle) mobileToggle.addEventListener('click', toggleMenu);
+        if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
+        if (overlay) overlay.addEventListener('click', toggleMenu);
+
+        // --- NAVBAR SCROLL EFFECT ---
+        const navbar = document.querySelector('.navbar');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('transparent');
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.add('transparent');
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // --- SCROLL SEQUENCE ANIMATION ---
+        const canvas = document.getElementById('hero-canvas');
+        const context = canvas.getContext('2d');
+        const frameCount = 23;
+        const currentFrame = index => `images/ezgif-frame-${index.toString().padStart(3, '0')}.jpg`;
+
+        const images = [];
+        const heroSequenceContainer = document.querySelector('.hero-sequence-container');
+
+        // Preload images
+        const preloadImages = () => {
+            for (let i = 1; i < frameCount + 1; i++) {
+                const img = new Image();
+                img.src = currentFrame(i);
+                images.push(img);
+            }
+        };
+
+        const img = new Image();
+        img.src = currentFrame(1);
+        canvas.width = 1920; // Set base width
+        canvas.height = 1080; // Set base height
+
+        img.onload = function () {
+            context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        }
+
+        const updateImage = index => {
+            // Adjust index to be 0-based for array access
+            const imgIndex = index - 1;
+            if (images[imgIndex]) {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.drawImage(images[imgIndex], 0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const maxScrollTop = heroSequenceContainer.clientHeight - window.innerHeight;
+            const scrollFraction = scrollTop / maxScrollTop;
+
+            // Only update if within the hero container
+            if (scrollTop <= maxScrollTop + 100) { // Buffer
+                const frameIndex = Math.min(
+                    frameCount - 1,
+                    Math.ceil(scrollFraction * frameCount)
+                );
+
+                requestAnimationFrame(() => updateImage(frameIndex + 1));
+            }
+        });
+
+        preloadImages();
+
+        // Responsive Canvas
+        function resizeCanvas() {
+            // We keep internal resolution high (1920x1080) but CSS handles display
+            // But if we wanted to change internal resolution:
+            // canvas.width = window.innerWidth;
+            // canvas.height = window.innerHeight;
+            // For image sequences, keeping original aspect ratio and using object-fit: cover in CSS is usually better/smoother
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+
+    </script>
+</body>
+
+</html>
