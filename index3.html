@@ -4,152 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sundae Everydae - Scroll Sequence Demo</title>
+    <title>Sundae Everydae - Modal 50 Juta, Rasa Selevel Franchise 700 Juta</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Scroll Sequence Hero Styles */
-        .hero-sequence-container {
-            position: relative;
-            height: 400vh;
-            /* Control the speed of the animation by increasing height */
-            background: white;
-        }
-
-        .sticky-hero {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            width: 100%;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-        }
-
-        .sticky-hero .container {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            height: 100%;
-            width: 100%;
-        }
-
-        .hero-canvas-wrapper {
-            position: absolute;
-            top: 0;
-            right: 0;
-            /* Align to right */
-            left: auto;
-            width: 60%;
-            /* Occupy right side (60%) */
-            height: 100%;
-            z-index: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            /* Mask to fade nicely into content */
-            -webkit-mask-image: linear-gradient(to right, transparent, black 20%);
-            mask-image: linear-gradient(to right, transparent, black 20%);
-        }
-
-        canvas#hero-canvas {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-        }
-
-        /* Overlay Content to keep it visible but allow looking at the product */
-        .hero-content-overlay {
-            position: relative;
-            z-index: 20;
-            max-width: 50%;
-            /* Limit to left half */
-            color: var(--text-dark);
-            text-shadow: none;
-            background: none;
-            /* Remove card bg */
-            padding: 0;
-            border-radius: 0;
-            backdrop-filter: none;
-            box-shadow: none;
-        }
-
-        .hero-content-overlay h1 {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 900;
-            font-size: 3.5rem;
-            line-height: 1.1;
-            margin-bottom: 2rem;
-            color: #d63384;
-        }
-
-        .hero-content-overlay .subheadline {
-            font-size: 1.25rem;
-            margin-bottom: 2.5rem;
-            color: #555;
-            font-weight: 500;
-        }
-
-        .hero-content-overlay .badge {
-            margin-bottom: 1.5rem;
-        }
-
-        /* Navbar Overrides */
-        .navbar.transparent {
-            background: transparent;
-            backdrop-filter: none;
-            box-shadow: none;
-            padding: 25px 0;
-        }
-
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-sm);
-            padding: 15px 0;
-        }
-
-        /* Mobile Adjustments */
-        @media (max-width: 900px) {
-            .hero-canvas-wrapper {
-                width: 100%;
-                left: 0;
-                opacity: 0.3;
-                /* Fade out image on mobile to make text readable */
-                -webkit-mask-image: none;
-                mask-image: none;
-            }
-
-            .hero-content-overlay {
-                max-width: 100%;
-                text-align: center;
-                margin: 0 auto;
-            }
-
-            .sticky-hero .container {
-                justify-content: center;
-            }
-
-            .navbar.transparent {
-                background: rgba(255, 255, 255, 0.9);
-                /* Keep bg on mobile usually */
-                padding: 15px 0;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar transparent">
+    <nav class="navbar">
         <div class="container">
             <a href="#" class="logo">
                 <img src="assets/img/logo.webp" alt="Sundae Everydae Logo">
@@ -190,26 +57,31 @@
         </ul>
     </aside>
 
-    <!-- Hero Section with Scroll Sequence -->
-    <div class="hero-sequence-container">
-        <div class="sticky-hero">
-            <div class="hero-canvas-wrapper">
-                <canvas id="hero-canvas"></canvas>
-            </div>
-
-            <div class="container">
-                <div class="hero-content-overlay">
-                    <span class="badge">🍦 Peluang Bisnis Es Krim Viral</span>
-                    <h1>MODAL 50 JUTA,<br>RASA & HASIL SELEVEL FRANCHISE 700 JUTA!</h1>
-                    <p class="subheadline">Kenapa Harus Mengantri 2 Tahun untuk Balik Modal, Jika Kamu Bisa "Profit" di
-                        Bulan Ke-5?</p>
-                    <div class="cta-group">
-                        <a href="#perbandingan" class="btn-primary icon-btn">Pelajari Lebih Lanjut 👇</a>
-                    </div>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="badge">🍦 Peluang Bisnis Es Krim Viral</span>
+                <h1>MODAL 50 JUTA,<br>RASA & HASIL SELEVEL FRANCHISE 700 JUTA!</h1>
+                <p class="subheadline">Kenapa Harus Mengantri 2 Tahun untuk Balik Modal, Jika Kamu Bisa "Profit" di
+                    Bulan Ke-5?</p>
+                <div class="cta-group">
+                    <a href="#perbandingan" class="btn-primary icon-btn">Pelajari Lebih Lanjut 👇</a>
                 </div>
             </div>
+            <div class="hero-image">
+                <!-- Placeholder for Hero Image - using a package image for now if no specific hero provided -->
+                <img src="assets/img/sundae-series-1.webp" alt="Sundae Everydae Store" class="hero-img-main">
+            </div>
         </div>
-    </div>
+        <div class="hero-waves">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1"
+                    d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+                </path>
+            </svg>
+        </div>
+    </header>
 
     <!-- Logic War Section -->
     <section id="perbandingan" class="logic-war section-padding">
@@ -607,84 +479,6 @@
         if (mobileToggle) mobileToggle.addEventListener('click', toggleMenu);
         if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
         if (overlay) overlay.addEventListener('click', toggleMenu);
-
-        // --- NAVBAR SCROLL EFFECT ---
-        const navbar = document.querySelector('.navbar');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.remove('transparent');
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.add('transparent');
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // --- SCROLL SEQUENCE ANIMATION ---
-        const canvas = document.getElementById('hero-canvas');
-        const context = canvas.getContext('2d');
-        const frameCount = 23;
-        const currentFrame = index => `images/ezgif-frame-${index.toString().padStart(3, '0')}.jpg`;
-
-        const images = [];
-        const heroSequenceContainer = document.querySelector('.hero-sequence-container');
-
-        // Preload images
-        const preloadImages = () => {
-            for (let i = 1; i < frameCount + 1; i++) {
-                const img = new Image();
-                img.src = currentFrame(i);
-                images.push(img);
-            }
-        };
-
-        const img = new Image();
-        img.src = currentFrame(1);
-        canvas.width = 1920; // Set base width
-        canvas.height = 1080; // Set base height
-
-        img.onload = function () {
-            context.drawImage(img, 0, 0, canvas.width, canvas.height);
-        }
-
-        const updateImage = index => {
-            // Adjust index to be 0-based for array access
-            const imgIndex = index - 1;
-            if (images[imgIndex]) {
-                context.clearRect(0, 0, canvas.width, canvas.height);
-                context.drawImage(images[imgIndex], 0, 0, canvas.width, canvas.height);
-            }
-        }
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const maxScrollTop = heroSequenceContainer.clientHeight - window.innerHeight;
-            const scrollFraction = scrollTop / maxScrollTop;
-
-            // Only update if within the hero container
-            if (scrollTop <= maxScrollTop + 100) { // Buffer
-                const frameIndex = Math.min(
-                    frameCount - 1,
-                    Math.ceil(scrollFraction * frameCount)
-                );
-
-                requestAnimationFrame(() => updateImage(frameIndex + 1));
-            }
-        });
-
-        preloadImages();
-
-        // Responsive Canvas
-        function resizeCanvas() {
-            // We keep internal resolution high (1920x1080) but CSS handles display
-            // But if we wanted to change internal resolution:
-            // canvas.width = window.innerWidth;
-            // canvas.height = window.innerHeight;
-            // For image sequences, keeping original aspect ratio and using object-fit: cover in CSS is usually better/smoother
-        }
-
-        window.addEventListener('resize', resizeCanvas);
 
     </script>
 </body>
