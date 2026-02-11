@@ -462,46 +462,62 @@
                 <p>Pengalaman mereka yang sudah lebih dulu menghitung dan menjalankan.</p>
             </div>
 
-            <div class="testimonial-slider">
-                <div class="testimonial-card">
-                    <div class="quote-icon">“</div>
-                    <p class="quote">Saya hitung dari awal, target saya bukan viral tapi balik modal. Dengan harga jual
-                        6–18 ribu dan penjualan 60–80 cup/hari, angka masih masuk. Operasional cukup kontrol lewat HP.
-                    </p>
-                    <div class="author">
-                        <strong>Andika</strong>
-                        <span>Karyawan Swasta (Mitra Bandung)</span>
+            <div class="testimonial-carousel-wrapper">
+                <div class="testimonial-carousel">
+                    <div class="testimonial-card">
+                        <div class="quote-icon">“</div>
+                        <p class="quote">Saya hitung dari awal, target saya bukan viral tapi balik modal. Dengan harga
+                            jual
+                            6–18 ribu dan penjualan 60–80 cup/hari, angka masih masuk. Operasional cukup kontrol lewat
+                            HP.
+                        </p>
+                        <div class="author">
+                            <strong>Andika</strong>
+                            <span>Karyawan Swasta (Mitra Bandung)</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="quote-icon">“</div>
+                        <p class="quote">Di Sundae Everydae, modal di bawah 50 juta sudah bisa jalan. BEP di kisaran 4–6
+                            bulan jauh lebih masuk akal dibanding franchise ratusan juta.</p>
+                        <div class="author">
+                            <strong>Bu Sari</strong>
+                            <span>Ibu Rumah Tangga (Mitra Depok)</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="quote-icon">“</div>
+                        <p class="quote">Di sini tidak ada royalty fee dan bagi hasil, jadi penjualan harian langsung
+                            masuk
+                            ke cashflow sendiri. Jauh lebih ringan dan cepat muter.</p>
+                        <div class="author">
+                            <strong>Rian</strong>
+                            <span>Entrepreneur Muda (Mitra Yogyakarta)</span>
+                        </div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="quote-icon">“</div>
+                        <p class="quote">Dengan modal lebih kecil dan tanpa royalty, risikonya lebih tersebar. Secara
+                            hitungan bisnis, ini lebih sehat.</p>
+                        <div class="author">
+                            <strong>Maya</strong>
+                            <span>Mantan Pelaku Franchise (Mitra Tangerang)</span>
+                        </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon">“</div>
-                    <p class="quote">Di Sundae Everydae, modal di bawah 50 juta sudah bisa jalan. BEP di kisaran 4–6
-                        bulan jauh lebih masuk akal dibanding franchise ratusan juta.</p>
-                    <div class="author">
-                        <strong>Bu Sari</strong>
-                        <span>Ibu Rumah Tangga (Mitra Depok)</span>
-                    </div>
+
+                <!-- Navigation Dots -->
+                <div class="carousel-dots">
+                    <span class="dot active" data-slide="0"></span>
+                    <span class="dot" data-slide="1"></span>
+                    <span class="dot" data-slide="2"></span>
+                    <span class="dot" data-slide="3"></span>
                 </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon">“</div>
-                    <p class="quote">Di sini tidak ada royalty fee dan bagi hasil, jadi penjualan harian langsung masuk
-                        ke cashflow sendiri. Jauh lebih ringan dan cepat muter.</p>
-                    <div class="author">
-                        <strong>Rian</strong>
-                        <span>Entrepreneur Muda (Mitra Yogyakarta)</span>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="quote-icon">“</div>
-                    <p class="quote">Dengan modal lebih kecil dan tanpa royalty, risikonya lebih tersebar. Secara
-                        hitungan bisnis, ini lebih sehat.</p>
-                    <div class="author">
-                        <strong>Maya</strong>
-                        <span>Mantan Pelaku Franchise (Mitra Tangerang)</span>
-                    </div>
-                </div>
+
+                <!-- Navigation Arrows -->
+                <button class="carousel-arrow prev" aria-label="Previous testimonial">‹</button>
+                <button class="carousel-arrow next" aria-label="Next testimonial">›</button>
             </div>
-        </div>
     </section>
 
     <!-- Scarcity & CTA Section -->
@@ -696,6 +712,76 @@
         window.addEventListener('resize', resizeCanvas);
 
     </script>
+
+    <!-- Testimonial Carousel Script -->
+    <script>
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.querySelector('.carousel-arrow.prev');
+        const nextBtn = document.querySelector('.carousel-arrow.next');
+        let currentSlide = 0;
+        let autoSlideInterval;
+
+        function showSlide(index) {
+            // Remove active class from all cards and dots
+            testimonialCards.forEach(card => card.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            // Add active class to current slide
+            testimonialCards[index].classList.add('active');
+            dots[index].classList.add('active');
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % testimonialCards.length;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + testimonialCards.length) % testimonialCards.length;
+            showSlide(currentSlide);
+        }
+
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(nextSlide, 5000); // Change slide every 5 seconds
+        }
+
+        function stopAutoSlide() {
+            clearInterval(autoSlideInterval);
+        }
+
+        // Event listeners for manual navigation
+        nextBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            nextSlide();
+            startAutoSlide();
+        });
+
+        prevBtn.addEventListener('click', () => {
+            stopAutoSlide();
+            prevSlide();
+            startAutoSlide();
+        });
+
+        // Event listeners for dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                stopAutoSlide();
+                currentSlide = index;
+                showSlide(currentSlide);
+                startAutoSlide();
+            });
+        });
+
+        // Start auto-slide on page load
+        startAutoSlide();
+
+        // Pause auto-slide when user hovers over carousel
+        const carouselWrapper = document.querySelector('.testimonial-carousel-wrapper');
+        carouselWrapper.addEventListener('mouseenter', stopAutoSlide);
+        carouselWrapper.addEventListener('mouseleave', startAutoSlide);
+    </script>
+
 </body>
 
 </html>
