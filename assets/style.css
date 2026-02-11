@@ -743,7 +743,8 @@ th.brand-col {
 /* Testimonials */
 .testimonial-carousel-wrapper {
     position: relative;
-    max-width: 800px;
+    max-width: 1100px;
+    /* Increased for 3 columns */
     margin: 0 auto;
     padding: 0 60px;
 }
@@ -753,10 +754,11 @@ th.brand-col {
     overflow: hidden;
 }
 
-/* Individual Slide Container (Holds 2 cards) */
+/* Individual Slide Container (Holds 3 cards) */
 .testimonial-slide {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    /* 3 Columns */
     gap: 30px;
     width: 100%;
     /* Transition styles matching previous logic */
@@ -779,7 +781,8 @@ th.brand-col {
 /* Reset Card Styles to sit inside the grid */
 .testimonial-card {
     background: white;
-    padding: 40px 30px;
+    padding: 30px 20px;
+    /* Slightly reduced padding for 3-col */
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
     position: relative;
@@ -799,6 +802,13 @@ th.brand-col {
 
 /* Remove the old active class logic for cards since keying is on slides now */
 /* .testimonial-card.active {} - REMOVED */
+
+@media (max-width: 992px) {
+    .testimonial-slide {
+        grid-template-columns: 1fr 1fr;
+        /* 2 Columns on Tablet */
+    }
+}
 
 @media (max-width: 768px) {
     .testimonial-slide {
