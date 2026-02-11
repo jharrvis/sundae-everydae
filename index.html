@@ -342,32 +342,44 @@
     </section>
 
     <!-- Why Powerful Section -->
-    <section id="prospek" class="why-powerful section-padding bg-pattern">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-text">
-                    <h2>Kenapa Paket 50 Juta Kami Lebih "Powerfull"?</h2>
-                    <p class="lead">Bukan hanya karena murah, tapi karena <strong>Efisiensi</strong>:</p>
-                    <ul class="check-list">
-                        <li>
-                            <strong>✅ Menu Duplikasi</strong>
-                            <p>Kami riset menu yang paling laku di Mixue/Bingsue, lalu kami sempurnakan rasanya agar
-                                kamu bisa menjualnya dengan harga lebih kompetitif.</p>
-                        </li>
-                        <li>
-                            <strong>✅ Tanpa Birokrasi</strong>
-                            <p>Tidak perlu approval lokasi yang rumit. Kamu temukan tempat strategis, kamu buka, kamu
-                                cuan.</p>
-                        </li>
-                        <li>
-                            <strong>✅ Skalabilitas</strong>
-                            <p>Begitu gerai pertama balik modal dalam 5 bulan, gunakan profitnya untuk buka gerai ke-2,
-                                ke-3, dan seterusnya.</p>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-image">
-                    <img src="assets/img/paket-bliss.webp" alt="Sundae Everydae Experience" class="feature-img">
+    <!-- Why Powerful Section (Scroll Sequence) -->
+    <section id="prospek" class="scroll-sequence-prospek bg-pattern">
+        <div class="prospek-sticky">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 col-md-6">
+                        <div class="col-text">
+                            <h2>Kenapa Paket 50 Juta Kami Lebih "Powerfull"?</h2>
+                            <p class="lead">Bukan hanya karena murah, tapi karena <strong>Efisiensi</strong>:</p>
+                            <ul class="check-list">
+                                <li>
+                                    <strong>✅ Menu Duplikasi</strong>
+                                    <p>Kami riset menu yang paling laku di Mixue/Bingsue, lalu kami sempurnakan rasanya
+                                        agar
+                                        kamu bisa menjualnya dengan harga lebih kompetitif.</p>
+                                </li>
+                                <li>
+                                    <strong>✅ Tanpa Birokrasi</strong>
+                                    <p>Tidak perlu approval lokasi yang rumit. Kamu temukan tempat strategis, kamu buka,
+                                        kamu
+                                        cuan.</p>
+                                </li>
+                                <li>
+                                    <strong>✅ Skalabilitas</strong>
+                                    <p>Begitu gerai pertama balik modal dalam 5 bulan, gunakan profitnya untuk buka
+                                        gerai
+                                        ke-2,
+                                        ke-3, dan seterusnya.</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-6 text-center">
+                        <div class="col-image">
+                            <!-- Canvas for Animation -->
+                            <canvas id="prospek-canvas"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -874,6 +886,86 @@
                 closeLightbox();
             }
         });
+    </script>
+    <!-- Prospek Scroll Sequence Script -->
+    <script>
+        const prospekCanvas = document.getElementById('prospek-canvas');
+        const prospekContext = prospekCanvas.getContext('2d');
+        const prospekFrameCount = 21;
+        const currentProspekFrame = index => `assets/motion2/ezgif-frame-${index.toString().padStart(3, '0')}.jpg`;
+
+        const prospekImages = [];
+        const prospekSection = document.getElementById('prospek');
+
+        // Preload images
+        const preloadProspekImages = () => {
+            for (let i = 1; i < prospekFrameCount + 1; i++) {
+                const img = new Image();
+                img.src = currentProspekFrame(i);
+                prospekImages.push(img);
+            }
+        };
+
+        const prospekImg = new Image();
+        prospekImg.src = currentProspekFrame(1);
+
+        // Use a standard resolution or dynamic
+        prospekCanvas.width = 1000; // Adjust based on source image ratio
+        prospekCanvas.height = 1000; // Appears square?
+
+        prospekImg.onload = function () {
+            // Adjust canvas ratio to match first image
+            prospekCanvas.width = prospekImg.naturalWidth || 1000;
+            prospekCanvas.height = prospekImg.naturalHeight || 1000;
+            prospekContext.drawImage(prospekImg, 0, 0, prospekCanvas.width, prospekCanvas.height);
+        }
+
+        const updateProspekImage = index => {
+            // Adjust index to be 0-based for array access
+            const imgIndex = index - 1;
+            if (prospekImages[imgIndex]) {
+                prospekContext.clearRect(0, 0, prospekCanvas.width, prospekCanvas.height);
+                prospekContext.drawImage(prospekImages[imgIndex], 0, 0, prospekCanvas.width, prospekCanvas.height);
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+            // Calculate scroll position relative to the document
+            const rect = prospekSection.getBoundingClientRect();
+            const sectionTop = rect.top + window.scrollY; // Absolute top position
+            const sectionHeight = prospekSection.clientHeight;
+            const windowHeight = window.innerHeight;
+
+            // We want the animation to progress as the section passes through the viewport
+            // But since it's sticky, we want it to progress as we scroll DOWN through the section height.
+            // The sticky part stays fixed while we scroll the section's height.
+
+            // Start animating when section hits top of viewport (or close to it)
+            // rect.top is relative to viewport. When rect.top is 0, we are at start.
+            // When rect.top is -(sectionHeight - windowHeight), we are at end.
+
+            const startScroll = 0; // When section top is at viewport top
+            const endScroll = -(sectionHeight - windowHeight); // When section bottom is at viewport bottom
+
+            // Current scroll position relative to section start
+            // We use -rect.top because as we scroll down, rect.top becomes negative
+            const currentScroll = -rect.top;
+
+            // Total scrollable distance
+            const maxScroll = sectionHeight - windowHeight;
+
+            if (currentScroll >= 0 && currentScroll <= maxScroll + 50) {
+                const scrollFraction = currentScroll / maxScroll;
+                const frameIndex = Math.min(
+                    prospekFrameCount - 1,
+                    Math.max(0, Math.ceil(scrollFraction * prospekFrameCount))
+                );
+
+                requestAnimationFrame(() => updateProspekImage(frameIndex + 1));
+            }
+        });
+
+        preloadProspekImages();
     </script>
 </body>
 
