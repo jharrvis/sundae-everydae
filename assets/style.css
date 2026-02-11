@@ -1163,5 +1163,78 @@ footer {
 
 .package-image img {
     cursor: pointer;
-    /* Require pointer to indicate clickable */
-}
+
+    /* Prospek Scroll Sequence Styles (Full Width Overlay) */
+    #prospek.scroll-sequence-full {
+        position: relative;
+        height: 300vh;
+        /* Scroll distance */
+        padding: 0;
+        overflow: visible;
+        background-color: var(--white);
+    }
+
+    .prospek-sticky {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        /* Aligns content vertically */
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Canvas as background */
+    #prospek-canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+    }
+
+    /* Content on top */
+    .prospek-sticky .container {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        /* Ensure container takes width */
+    }
+
+    /* Text overlay style */
+    .prospek-text-overlay {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+    }
+
+    @media (max-width: 768px) {
+        #prospek.scroll-sequence-full {
+            height: auto;
+        }
+
+        .prospek-sticky {
+            position: relative;
+            height: auto;
+            display: block;
+            padding: 60px 0;
+        }
+
+        #prospek-canvas {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .prospek-text-overlay {
+            background: rgba(255, 255, 255, 0.95);
+            margin: 20px;
+        }
+    }
