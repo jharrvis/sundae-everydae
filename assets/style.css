@@ -649,9 +649,9 @@ th.brand-col {
 
 .package-card {
     background: white;
-    border-radius: var(--radius-md);
+    border-radius: 0;
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
+    box-shadow: none;
     transition: all 0.3s ease;
     position: relative;
     border: 1px solid #eee;
@@ -661,7 +661,7 @@ th.brand-col {
 
 .package-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
 }
 
 .package-card.featured {
@@ -700,6 +700,7 @@ th.brand-col {
     position: relative;
     height: 280px;
     overflow: hidden;
+    border-radius: 0;
 }
 
 .package-image img {
