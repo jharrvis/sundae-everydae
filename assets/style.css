@@ -1188,16 +1188,22 @@ footer {
 }
 
 /* Canvas as background */
+/* Canvas as background - Matching Hero Style */
 #prospek-canvas {
     position: absolute;
     top: 0;
-    left: 50%;
-    /* Content takes left 50%, image takes right 50% */
-    width: 100%;
+    right: 0;
+    /* Align right like Hero */
+    left: auto;
+    width: 60%;
+    /* Match Hero width */
     height: 100%;
     object-fit: cover;
     object-position: center;
     z-index: 0;
+    /* Mask to fade nicely into content like Hero */
+    -webkit-mask-image: linear-gradient(to right, transparent, black 20%);
+    mask-image: linear-gradient(to right, transparent, black 20%);
 }
 
 /* Content on top */
