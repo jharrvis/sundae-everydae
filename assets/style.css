@@ -753,23 +753,58 @@ th.brand-col {
     overflow: hidden;
 }
 
+/* Individual Slide Container (Holds 2 cards) */
+.testimonial-slide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 100%;
+    /* Transition styles matching previous logic */
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.testimonial-slide.active {
+    position: relative;
+    /* Flow in document */
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 2;
+}
+
+/* Reset Card Styles to sit inside the grid */
 .testimonial-card {
     background: white;
     padding: 40px 30px;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
-    position: absolute;
+    position: relative;
+    /* Reset from absolute */
     width: 100%;
-    opacity: 0;
-    transform: translateX(100%);
-    transition: all 0.5s ease-in-out;
+    opacity: 1;
+    /* Always visible inside the slide */
+    transform: none;
+    /* Reset transform */
     text-align: center;
+    height: 100%;
+    /* Equal height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.testimonial-card.active {
-    position: relative;
-    opacity: 1;
-    transform: translateX(0);
+/* Remove the old active class logic for cards since keying is on slides now */
+/* .testimonial-card.active {} - REMOVED */
+
+@media (max-width: 768px) {
+    .testimonial-slide {
+        grid-template-columns: 1fr;
+        /* Stack on mobile */
+    }
 }
 
 .testimonial-avatar {
