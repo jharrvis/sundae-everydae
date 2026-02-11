@@ -1212,6 +1212,19 @@ footer {
     z-index: 1;
     width: 100%;
     /* Ensure container takes width */
+    display: flex;
+    /* Flexbox to align content */
+    align-items: center;
+    /* Vertically center */
+    justify-content: flex-start;
+    /* Align left */
+}
+
+/* Text overlay limit - Match Hero Logic */
+.prospek-content-limit {
+    max-width: 50%;
+    /* Strictly limit to 50% like Hero */
+    width: 100%;
 }
 
 /* Text overlay style */
@@ -1242,13 +1255,22 @@ footer {
         height: 100%;
         width: 100%;
         top: 0;
+        right: auto;
         left: 0;
-        /* Reset left on mobile */
+        /* Reset horizontal position on mobile */
         object-position: center;
+        mask-image: none;
+        /* Remove mask on mobile */
+        -webkit-mask-image: none;
     }
 
     .prospek-text-overlay {
         background: rgba(255, 255, 255, 0.95);
         margin: 20px;
+    }
+
+    .prospek-content-limit {
+        max-width: 100%;
+        /* Full width on mobile */
     }
 }
