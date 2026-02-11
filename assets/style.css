@@ -1236,6 +1236,8 @@ footer {
         width: 100%;
         top: 0;
         left: 0;
+        /* Reset left on mobile */
+        object-position: center;
     }
 
     .prospek-text-overlay {
