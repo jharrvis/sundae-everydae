@@ -389,7 +389,8 @@
                     <!-- Paket Hemat (Sold Out) -->
                     <div class="package-card sold-out">
                         <div class="package-image">
-                            <img src="assets/img/paket-hemat-sold-out.jpg" alt="Paket Hemat">
+                            <img src="assets/img/th_paket-hemat.jpg" alt="Paket Hemat"
+                                onclick="openLightbox('assets/img/paket-hemat-sold-out.jpg')">
                             <div class="overlay">SOLD OUT</div>
                         </div>
                         <div class="package-details">
@@ -401,7 +402,8 @@
                     <!-- Paket Sugar (Sold Out) -->
                     <div class="package-card sold-out">
                         <div class="package-image">
-                            <img src="assets/img/paket-sugar-sold-out.jpg" alt="Paket Sugar">
+                            <img src="assets/img/th_paket-sugar.jpg" alt="Paket Sugar"
+                                onclick="openLightbox('assets/img/paket-sugar-sold-out.jpg')">
                             <div class="overlay">SOLD OUT</div>
                         </div>
                         <div class="package-details">
@@ -420,7 +422,8 @@
                     <div class="package-card featured">
                         <div class="badge-best">BEST SELLER</div>
                         <div class="package-image">
-                            <img src="assets/img/paket-sweet.jpg" alt="Paket Sweet">
+                            <img src="assets/img/th_paket-sweet.jpg" alt="Paket Sweet"
+                                onclick="openLightbox('assets/img/paket-sweet.jpg')">
                         </div>
                         <div class="package-details">
                             <h3>Paket Sweet</h3>
@@ -431,7 +434,8 @@
                     <!-- Paket Bliss -->
                     <div class="package-card">
                         <div class="package-image">
-                            <img src="assets/img/paket-bliss.webp" alt="Paket Bliss">
+                            <img src="assets/img/th_paket-bliss.jpg" alt="Paket Bliss"
+                                onclick="openLightbox('assets/img/paket-bliss.jpg')">
                         </div>
                         <div class="package-details">
                             <h3>Paket Bliss</h3>
@@ -442,7 +446,8 @@
                     <!-- Paket Lux -->
                     <div class="package-card">
                         <div class="package-image">
-                            <img src="assets/img/paket-lux.jpg" alt="Paket Lux">
+                            <img src="assets/img/th_paket-lux.jpg" alt="Paket Lux"
+                                onclick="openLightbox('assets/img/paket-lux.jpg')">
                         </div>
                         <div class="package-details">
                             <h3>Paket Lux</h3>
@@ -824,6 +829,52 @@
         }
     </script>
 
+    <!-- Lightbox Modal -->
+    <div id="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Full Image">
+    </div>
+
+    <!-- Lightbox Script -->
+    <script>
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCloseBtn = document.querySelector('.lightbox-close');
+
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.style.display = 'flex';
+            // Trigger reflow to enable transition
+            setTimeout(() => {
+                lightbox.classList.add('active');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            setTimeout(() => {
+                lightbox.style.display = 'none';
+                lightboxImg.src = '';
+            }, 300); // Wait for transition
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        lightboxCloseBtn.addEventListener('click', closeLightbox);
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Close on Esc key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                closeLightbox();
+            }
+        });
+    </script>
 </body>
 
 </html>
