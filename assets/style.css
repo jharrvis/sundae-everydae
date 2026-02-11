@@ -588,8 +588,7 @@ th.brand-col {
 }
 
 .feature-img {
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    /* Styling removed for clean appearance */
 }
 
 /* Packages */
@@ -649,9 +648,9 @@ th.brand-col {
 
 .package-card {
     background: white;
-    border-radius: 0;
+    border-radius: var(--radius-md);
     overflow: hidden;
-    box-shadow: none;
+    box-shadow: var(--shadow-sm);
     transition: all 0.3s ease;
     position: relative;
     border: 1px solid #eee;
@@ -661,7 +660,7 @@ th.brand-col {
 
 .package-card:hover {
     transform: translateY(-5px);
-    box-shadow: none;
+    box-shadow: var(--shadow-md);
 }
 
 .package-card.featured {
@@ -700,7 +699,6 @@ th.brand-col {
     position: relative;
     height: 280px;
     overflow: hidden;
-    border-radius: 0;
 }
 
 .package-image img {
