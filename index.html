@@ -10,7 +10,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/style.css">
     <style>
         /* Scroll Sequence Hero Styles */
         .hero-sequence-container {
@@ -367,7 +367,7 @@
                     </ul>
                 </div>
                 <div class="col-image">
-                    <img src="assets/img/paket-lux.jpg" alt="Sundae Everydae Experience"
+                    <img src="assets/img/paket-bliss-2.jpg" alt="Sundae Everydae Experience"
                         class="feature-img rounded shadow">
                 </div>
             </div>
@@ -383,62 +383,72 @@
                     berikutnya.</p>
             </div>
 
-            <div class="packages-grid">
-                <!-- Paket Hemat (Sold Out) -->
-                <div class="package-card sold-out">
-                    <div class="package-image">
-                        <img src="assets/img/paket-hemat-sold-out.jpg" alt="Paket Hemat">
-                        <div class="overlay">SOLD OUT</div>
+            <!-- Sold Out Packages Row -->
+            <div class="packages-row sold-out-row">
+                <h3 class="row-title">Paket Terjual Habis</h3>
+                <div class="packages-grid-row">
+                    <!-- Paket Hemat (Sold Out) -->
+                    <div class="package-card sold-out">
+                        <div class="package-image">
+                            <img src="assets/img/paket-hemat-sold-out.jpg" alt="Paket Hemat">
+                            <div class="overlay">SOLD OUT</div>
+                        </div>
+                        <div class="package-details">
+                            <h3>Paket Hemat</h3>
+                            <button class="btn-disabled">Habis Terjual</button>
+                        </div>
                     </div>
-                    <div class="package-details">
-                        <h3>Paket Hemat</h3>
-                        <button class="btn-disabled">Habis Terjual</button>
+
+                    <!-- Paket Sugar (Sold Out) -->
+                    <div class="package-card sold-out">
+                        <div class="package-image">
+                            <img src="assets/img/paket-sugar-sold-out.jpg" alt="Paket Sugar">
+                            <div class="overlay">SOLD OUT</div>
+                        </div>
+                        <div class="package-details">
+                            <h3>Paket Sugar</h3>
+                            <button class="btn-disabled">Habis Terjual</button>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Paket Sugar (Sold Out) -->
-                <div class="package-card sold-out">
-                    <div class="package-image">
-                        <img src="assets/img/paket-sugar-sold-out.jpg" alt="Paket Sugar">
-                        <div class="overlay">SOLD OUT</div>
+            <!-- Available Packages Row -->
+            <div class="packages-row available-row">
+                <h3 class="row-title">Paket Tersedia</h3>
+                <div class="packages-grid-row">
+                    <!-- Paket Sweet -->
+                    <div class="package-card featured">
+                        <div class="badge-best">BEST SELLER</div>
+                        <div class="package-image">
+                            <img src="assets/img/paket-sweet.jpg" alt="Paket Sweet">
+                        </div>
+                        <div class="package-details">
+                            <h3>Paket Sweet</h3>
+                            <a href="#konsultasi" class="btn-primary full-width">Pilih Paket Ini</a>
+                        </div>
                     </div>
-                    <div class="package-details">
-                        <h3>Paket Sugar</h3>
-                        <button class="btn-disabled">Habis Terjual</button>
-                    </div>
-                </div>
 
-                <!-- Paket Sweet -->
-                <div class="package-card featured">
-                    <div class="badge-best">BEST SELLER</div>
-                    <div class="package-image">
-                        <img src="assets/img/paket-sweet.jpg" alt="Paket Sweet">
+                    <!-- Paket Bliss -->
+                    <div class="package-card">
+                        <div class="package-image">
+                            <img src="assets/img/paket-bliss.jpg" alt="Paket Bliss">
+                        </div>
+                        <div class="package-details">
+                            <h3>Paket Bliss</h3>
+                            <a href="#konsultasi" class="btn-outline full-width">Pilih Paket Ini</a>
+                        </div>
                     </div>
-                    <div class="package-details">
-                        <h3>Paket Sweet</h3>
-                        <a href="#konsultasi" class="btn-primary full-width">Pilih Paket Ini</a>
-                    </div>
-                </div>
 
-                <!-- Paket Bliss -->
-                <div class="package-card">
-                    <div class="package-image">
-                        <img src="assets/img/paket-bliss.jpg" alt="Paket Bliss">
-                    </div>
-                    <div class="package-details">
-                        <h3>Paket Bliss</h3>
-                        <a href="#konsultasi" class="btn-outline full-width">Pilih Paket Ini</a>
-                    </div>
-                </div>
-
-                <!-- Paket Lux -->
-                <div class="package-card">
-                    <div class="package-image">
-                        <img src="assets/img/paket-lux.jpg" alt="Paket Lux">
-                    </div>
-                    <div class="package-details">
-                        <h3>Paket Lux</h3>
-                        <a href="#konsultasi" class="btn-outline full-width">Pilih Paket Ini</a>
+                    <!-- Paket Lux -->
+                    <div class="package-card">
+                        <div class="package-image">
+                            <img src="assets/img/paket-lux.jpg" alt="Paket Lux">
+                        </div>
+                        <div class="package-details">
+                            <h3>Paket Lux</h3>
+                            <a href="#konsultasi" class="btn-outline full-width">Pilih Paket Ini</a>
+                        </div>
                     </div>
                 </div>
             </div>
