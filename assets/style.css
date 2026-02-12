@@ -1293,8 +1293,30 @@ footer {
     }
 
     .prospek-text-overlay {
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         margin: 20px;
+        padding: 30px 25px;
+        border-radius: 24px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .prospek-text-overlay h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .check-list li {
+        margin-bottom: 25px;
+    }
+
+    .check-list li strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 1.2rem;
+        color: var(--text-dark);
     }
 
     .prospek-content-limit {
